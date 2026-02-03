@@ -1,0 +1,206 @@
+/* Meaning Clue Modal Styles */
+.meaning-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.2s ease;
+}
+
+.meaning-modal {
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 0;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(51, 119, 255, 0.1);
+  animation: modalSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.meaning-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 2px solid var(--color-light-2);
+  background: linear-gradient(135deg, var(--primary-subtle) 0%, var(--color-white) 100%);
+}
+
+.meaning-modal-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-dark);
+  font-family: var(--font-heading);
+}
+
+.meaning-modal-content {
+  padding: 32px 24px 24px;
+  text-align: center;
+}
+
+.meaning-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, #00B2CC 0%, #00D2FF 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 178, 204, 0.3);
+}
+
+.meaning-icon svg {
+  width: 40px;
+  height: 40px;
+  color: white;
+  stroke-width: 2;
+}
+
+.meaning-content {
+  margin: 24px 0;
+}
+
+.meaning-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-dark);
+  font-weight: 500;
+  margin: 0 0 20px 0;
+  padding: 16px;
+  background: var(--primary-subtle);
+  border-radius: 10px;
+  border-left: 4px solid var(--color-primary);
+}
+
+.meaning-definitions {
+  text-align: left;
+  margin-top: 20px;
+  padding: 16px;
+  background: var(--color-light-1);
+  border-radius: 10px;
+}
+
+.meaning-definitions h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-dark-2);
+  margin: 0 0 12px 0;
+  font-family: var(--font-heading);
+}
+
+.meaning-definitions ul {
+  margin: 0;
+  padding-left: 20px;
+  list-style: none;
+}
+
+.meaning-definitions li {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-dark-2);
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 8px;
+}
+
+.meaning-definitions li:before {
+  content: '•';
+  position: absolute;
+  left: -12px;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+.meaning-cost {
+  font-size: 13px;
+  color: var(--color-dark-3);
+  margin: 20px 0 0 0;
+  padding: 12px;
+  background: var(--color-light-1);
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .meaning-modal {
+    width: 95%;
+    max-height: 85vh;
+  }
+
+  .meaning-modal-header {
+    padding: 16px 20px;
+  }
+
+  .meaning-modal-header h3 {
+    font-size: 18px;
+  }
+
+  .meaning-modal-content {
+    padding: 24px 20px 20px;
+  }
+
+  .meaning-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .meaning-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .meaning-text {
+    font-size: 15px;
+    padding: 14px;
+  }
+
+  .meaning-definitions {
+    padding: 14px;
+  }
+
+  .meaning-definitions h4 {
+    font-size: 13px;
+  }
+
+  .meaning-definitions li {
+    font-size: 13px;
+  }
+
+  .meaning-cost {
+    font-size: 12px;
+    padding: 10px;
+  }
+}

@@ -1,0 +1,13 @@
+# data
+backend/hackathon_users.csv
+
+# dependencies
+frontend/node_modules
+
+# python
+__pycache__/
+*.pyc
+
+# sqlite
+*.sqlite3
+db.sqlite3

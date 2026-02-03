@@ -1,0 +1,228 @@
+/* =====================================================
+   Finathon 2026 – Login Page Styles
+   Strictly following Style Guide
+===================================================== */
+
+/* -------------------------------
+   Fonts
+-------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Mulish:wght@400;600&display=swap');
+
+/* -------------------------------
+   Design Tokens
+-------------------------------- */
+:root {
+    /* Primary */
+    --primary: #3377FF;
+    --primary-dark: #2659BF;
+    --primary-light: #99BBFF;
+    --primary-subtle: #E3EDFF;
+
+    /* Dark */
+    --dark-1: #3A3A3C;
+    --dark-2: #6B7588;
+    --dark-3: #8F90A6;
+    --dark-4: #C7C9D9;
+
+    /* Light */
+    --light-1: #DDE5E9;
+    --light-2: #EBEBF0;
+    --light-3: #F2F2F5;
+    --light-4: #FAFAFC;
+
+    --error: #FF3B3B;
+    --success: #06C270;
+    --warning: #FFCC00;
+    --info: #0066F7;
+    --muted: #6B7588;
+    --light: #DDE5E9;
+    --dark: #3A3A3C;
+    --white: #FFFFFF;
+    --black: #000000;
+}
+
+/* -------------------------------
+   Base
+-------------------------------- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Mulish', sans-serif;
+    background: var(--light-1);
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+.landing-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.landing-topbar {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    left: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    z-index: 10;
+}
+
+.landing-team {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--dark-1);
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid var(--light-2);
+    padding: 8px 12px;
+    border-radius: 9999px;
+}
+
+.landing-userbtn {
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    border: 1px solid var(--light-2);
+    background: rgba(255, 255, 255, 0.9);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.landing-userbtn i {
+    font-size: 22px;
+    color: var(--dark-1);
+}
+
+.landing-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+}
+
+.landing-title {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: clamp(24px, 4vw, 40px);
+    color: var(--dark-1);
+}
+
+.landing-subtitle {
+    margin: 10px 0 0;
+    font-family: 'Mulish', sans-serif;
+    font-weight: 500;
+    font-size: clamp(14px, 2.2vw, 18px);
+    color: var(--dark-2);
+}
+
+.landing-dropdown {
+    border-radius: 12px;
+    border: 1px solid var(--light-2);
+    padding: 0;
+    min-width: min(280px, calc(100vw - 32px));
+    max-width: calc(100vw - 32px);
+    transform: translate(0px, 46px);
+    position: absolute;
+    inset: 0px 0px auto auto;
+    margin: 0px;
+}
+
+@media (max-width: 480px) {
+    .landing-topbar {
+        top: 12px;
+        right: 12px;
+        left: 12px;
+    }
+}
+
+.landing-userline {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.landing-userline i {
+    font-size: 28px;
+    color: var(--dark-2);
+}
+
+.landing-username {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--dark-1);
+}
+
+.landing-userdetail {
+    font-family: 'Mulish', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--dark-2);
+}
+
+.fixed-screen {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fixed-screen.bg-cover {
+    background: url("../assets/hackathon_bg.webp") center / cover no-repeat;
+}
+
+.center-card {
+    width: min(520px, calc(100% - 48px));
+    padding: 48px 40px;
+    border-radius: 16px;
+    background: rgba(41, 40, 40, 0.66);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid var(--primary-subtle);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.cta-btn {
+    padding: 14px 40px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    background: var(--primary);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.cta-btn:hover {
+    background: var(--primary-dark);
+}
+
+.cta-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(51, 119, 255, 0.3);
+}
