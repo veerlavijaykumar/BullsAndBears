@@ -54,3 +54,5 @@ uritemplate==4.2.0
 urllib3==2.5.0
 gunicorn
 pymysql
+whitenoise
+
