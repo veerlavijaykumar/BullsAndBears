@@ -2,8 +2,26 @@ import json
 import re
 import random
 from datetime import timedelta
-import enchant
 import requests
+
+# Initialize WordNet-based word checker (much more comprehensive than basic words corpus)
+try:
+    import nltk
+    from nltk.corpus import wordnet
+    
+    # Download WordNet if not present (only once)
+    try:
+        nltk.data.find('corpora/wordnet')
+    except LookupError:
+        print("[INFO] Downloading WordNet corpus...")
+        nltk.download('wordnet', quiet=True)
+        nltk.download('omw-1.4', quiet=True)  # Open Multilingual WordNet for better coverage
+    
+    WORD_CHECKER_AVAILABLE = True
+    print("[INFO] WordNet word checker initialized successfully")
+except Exception as e:
+    print(f"[WARNING] WordNet checker not available: {e}")
+    WORD_CHECKER_AVAILABLE = False
 
 from django.http import HttpRequest, JsonResponse
 from django.db import transaction, connections
@@ -594,16 +612,6 @@ class ApiGameStartView(APIView):
 class ApiGameGuessView(APIView):
     """Validate a guess and return feedback - NO DATABASE WRITE"""
     
-    # Initialize English dictionary (US English)
-    try:
-        dictionary = enchant.Dict("en_US")
-    except enchant.errors.DictNotFoundError:
-        # Fallback to British English if US English not available
-        try:
-            dictionary = enchant.Dict("en_GB")
-        except:
-            dictionary = None
-    
     @swagger_auto_schema(
         tags=['2. Game'],
         operation_description="Submit a word guess and get feedback",
@@ -641,8 +649,8 @@ class ApiGameGuessView(APIView):
         if not guess.isalpha():
             return JsonResponse({'error': 'Guess must contain only letters.'}, status=400)
         
-        # Two-tier validation system:
-        # 1. First, check if word exists in database columns (word, s1-s5, a1-a5)
+        # Three-tier validation system:
+        # 1. First, check if word exists in our database (word, s1-s5, a1-a5)
         all_vocab_words = VocabWord.objects.all()
         valid_words_set = set()
         
@@ -653,14 +661,21 @@ class ApiGameGuessView(APIView):
         # Check if guess is in our database words
         in_database = guess.upper() in valid_words_set
         
+        # If not in database, check WordNet (comprehensive English dictionary)
         if not in_database:
-            # 2. If not in database, check with pyenchant dictionary as fallback
-            if not (self.dictionary and self.dictionary.check(guess)):
-                # Not in database AND not in dictionary
+            # 2. Check WordNet - much more comprehensive than basic words corpus
+            if WORD_CHECKER_AVAILABLE:
+                # WordNet lookup: check if the word exists in WordNet
+                synsets = wordnet.synsets(guess.lower())
+                if not synsets:
+                    # Word not found in WordNet -> invalid
+                    return JsonResponse({'error': 'Invalid word.'}, status=400)
+            else:
+                # 3. Fallback: If WordNet not available, reject non-database words
+                # This ensures we don't accept random letter combinations like "ABCDE"
                 return JsonResponse({'error': 'Invalid word.'}, status=400)
-            # else: word is valid in dictionary, allow it
         
-        # Word is valid (either in database or in dictionary), proceed with game
+        # Word is valid (either in database or in WordNet dictionary), proceed with game
         # Generate feedback
         feedback = self._generate_feedback(guess, secret_word)
         
